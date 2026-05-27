@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>StudyPal AI</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -11,13 +12,22 @@
 
     <p>Paste your notes below:</p>
 
-    <textarea rows="10" cols="50"></textarea>
+    <form method="POST">
 
-    <br><br>
+        <textarea name="notes" rows="10" cols="50"></textarea>
 
-    <button>Generate Questions</button>
+        <br><br>
+
+        <button type="submit">Generate Questions</button>
+
+    </form>
+
+    <h2>Your Notes:</h2>
+
+    <p>{{ notes }}</p>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
+
 </html>
