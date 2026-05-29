@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from question_generator import generate_questions
 
 app = Flask(__name__)
 
