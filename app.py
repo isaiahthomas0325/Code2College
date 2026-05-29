@@ -4,17 +4,31 @@ app = Flask(__name__)
 
 def generate_questions(notes):
 
+    """
+    Converts notes into simple study questions.
+
+    Preconditions:
+        notes is a string.
+
+    Postconditions:
+        Returns a list of generated questions.
+    """
+
     questions = []
 
-    lines = notes.split(".")
+    if not notes.strip():
+        return questions
 
-    for line in lines:
+    sentences = notes.split(".")
 
-        line = line.strip()
+    for sentence in sentences:
 
-        if line != "":
-            question = f"What is meant by: {line}?"
-            questions.append(question)
+        sentence = sentence.strip()
+
+        if sentence:
+            questions.append(
+                f"What is meant by: {sentence}?"
+            )
 
     return questions
 
@@ -23,15 +37,29 @@ def generate_questions(notes):
 def home():
 
     questions = []
+    error = ""
 
     if request.method == "POST":
 
-        notes = request.form.get("notes")
+        notes = request.form.get("notes", "").strip()
 
-        if notes.strip() != "":
+        if len(notes) == 0:
+
+            error = "Please enter some notes."
+
+        elif len(notes) < 10:
+
+            error = "Please enter more detailed notes."
+
+        else:
+
             questions = generate_questions(notes)
 
-    return render_template("index.html", questions=questions)
+    return render_template(
+        "index.html",
+        questions=questions,
+        error=error
+    )
 
 
 if __name__ == "__main__":
