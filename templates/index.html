@@ -22,11 +22,15 @@
 
     </form>
 
-    <h2>Your Notes:</h2>
+    <h2>Generated Questions:</h2>
 
-    <p>{{ notes }}</p>
+    <ul>
+        {% for question in questions %}
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+            <li>{{ question }}</li>
+
+        {% endfor %}
+    </ul>
 
 </body>
 
